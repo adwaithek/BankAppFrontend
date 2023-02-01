@@ -13,7 +13,7 @@
     </div>
 
     <!-- child component -->
-    <app-delete [item]="acno" (onCancel)="onCancel()"></app-delete>
+    <app-delete [item]="acno" (onCancel)="onCancel()" (onDelete)="onDelete($event)"></app-delete>
 
     <div class="child" [ngClass]="acno? 'style1':'' ">
         <div class="wrapper">
@@ -29,6 +29,7 @@
                     <input formControlName="acno" type="text" name="Account number" id="reg_acno"
                         placeholder="Account number">
                 </div>
+                
                 <div *ngIf="this.depositForm.get('acno')?.errors && this.depositForm.get('acno')?.touched"
                     style="color:red;">Invalid Account Number</div>
 

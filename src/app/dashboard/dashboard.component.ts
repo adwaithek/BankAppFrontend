@@ -9,101 +9,131 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  acno="";
-  pswd="";
-  amount="";
+  acno = "";
+  pswd = "";
+  amount = "";
 
   //withdraw
 
-  acno1="";
-  pswd1="";
-  amount1="";
+  acno1 = "";
+  pswd1 = "";
+  amount1 = "";
 
   // current user
 
-  user='';
-  sdate:any;
+  user = '';
+  sdate: any;
 
-  depositForm=this.fb.group({
-    acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
-    pswd:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*')]],
-    amount:['',[Validators.required,Validators.pattern('[0-9]*')]],
+  depositForm = this.fb.group({
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    pswd: ['', [Validators.required, Validators.pattern('[0-9a-zA-Z]*')]],
+    amount: ['', [Validators.required, Validators.pattern('[0-9]*')]],
 
   })
 
-  withdrawForm=this.fb.group({
-    acno1:['',[Validators.required,Validators.pattern('[0-9]*')]],
-    pswd1:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*')]],
-    amount1:['',[Validators.required,Validators.pattern('[0-9]*')]]
+  withdrawForm = this.fb.group({
+    acno1: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    pswd1: ['', [Validators.required, Validators.pattern('[0-9a-zA-Z]*')]],
+    amount1: ['', [Validators.required, Validators.pattern('[0-9]*')]]
   })
-   
 
-  constructor(private ds:DataService,private fb:FormBuilder,private router:Router) { 
-    this.user=this.ds.currentUser;
-    this.sdate=new Date;
+
+  constructor(private ds: DataService, private fb: FormBuilder, private router: Router) {
+    // this.user = this.ds.currentUser;
+       
+    if(localStorage.getItem('currentUser')){
+ this.user=JSON.parse(localStorage.getItem('currentUser')||'') 
+    }            
+    this.sdate = new Date;
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem('currentAcno')){
+    if (!localStorage.getItem('currentUser')) {
       alert('please login first')
       this.router.navigateByUrl('');
     }
-  }
-  deposit(){
-var acno=this.depositForm.value.acno;
-var pswd=this.depositForm.value.pswd;
-var amount=this.depositForm.value.amount;
-
-if(this.depositForm.valid){
-
-const result=this.ds.deposit(acno,pswd,amount)
-if(result){
-  alert(`${amount} is credited...Availble balance is ${result}`)
-}
-else{
-  alert('transaction error')
-}
-}
-else{
-  alert('deposit failed')
-}
-  }
-
-  withdraw(){
-    // alert('withdraw clicked')
-    var acno=this.withdrawForm.value.acno1;
-    var pswd=this.withdrawForm.value.pswd1;
-    var amount=this.withdrawForm.value.amount1;
-
-   if(this.withdrawForm.valid){
-
-    const result=this.ds.withdraw(acno,pswd,amount)
-    if(result){
-      alert(`${amount} is debited ..available balance is ${result}`)
+    // this.user=JSON.parse(localStorage.getItem('currentUser')||"")
+    // console.log(this.user);
     
-    }
-    else{
-      alert('transaction error')
-    }
   }
-  else{
-    alert('withdrawal failed')
-  }
-}
+  deposit() {
+    
+    var acno = this.depositForm.value.acno;
+    var pswd = this.depositForm.value.pswd;
+    var amount = this.depositForm.value.amount;
 
-logout(){
-  //remove user name and acno
+    if (this.depositForm.valid) {
 
-  localStorage.removeItem('currentAcno')
-  localStorage.removeItem('currentUser')
-  this.router.navigateByUrl('')
-}
+    this.ds.deposit(acno, pswd, amount)
+    .subscribe((result:any)=>{
+      alert(result.message)
+    },
 
-delete() {
-  // alert('delete clicked')
-  this.acno=JSON.parse(localStorage.getItem('currentAcno')||'')
+  result=>{
+    alert(result.error.message)
+  })
+     
+  
+}}
+
+
+  withdraw() {
+    // alert('withdraw clicked')
+    var acno = this.withdrawForm.value.acno1;
+    var pswd = this.withdrawForm.value.pswd1;
+    var amount = this.withdrawForm.value.amount1;
+
+    if (this.withdrawForm.valid) {
+
+       this.ds.withdraw(acno, pswd, amount)
+       .subscribe((result:any)=>{
+        alert(result.message)
+      },
+  
+    result=>{
+      alert(result.error.message)
+    })
+  }
 }
-onCancel(){
-  this.acno="";
+  //     if (result) {
+  //       alert(`${amount} is debited ..available balance is ${result}`)
+
+  //     }
+  //     else {
+  //       alert('transaction error')
+  //     }
+  //   }
+  //   else {
+  //     alert('withdrawal failed')
+  //   }
+  // }
+
+  logout() {
+    //remove user name and acno
+
+    localStorage.removeItem('currentAcno')
+    localStorage.removeItem('currentUser')
+    localStorage.removeItem('token')
+    this.router.navigateByUrl('')
+  }
+
+  delete() {
+    // alert('delete clicked')
+    this.acno = JSON.parse(localStorage.getItem('currentAcno') || '')
+  }
+  onCancel() {
+    this.acno = "";
+  }
+  onDelete(event:any){
+this.ds.deleteAcc(event)
+.subscribe((result:any)=>{
+  alert(result.message)
+  // this.router.navigateByUrl('');
+  this.logout()
+},
+result=>{
+  alert(result.error.message)
+}
+)
 }
 }

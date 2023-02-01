@@ -1,15 +1,19 @@
 <div class="wrapper">
     <div class="logo">
-        <img src="../../assets/images/bank.png" alt="">
+        <img src="https://cdn.logojoy.com/wp-content/uploads/2018/05/30160348/1528.png" alt="">
     </div>
-    <div class="text-center mt-4 name">
-        My Bank
-        <h6 style="color:yellowgreen;">{{aim}}</h6>
+    <div class="text-center mt-4 name ">
+        National Bank
+        <h6 style="color:rgb(39, 89, 142);">{{aim}}</h6>
     </div>
     <form [formGroup]="loginForm" class="p-3 mt-3">
         <div class="form-field d-flex align-items-center">
             <input formControlName="acno" type="text" name="acno" id="login_acno" placeholder="Account number">
         </div>
+
+
+
+        
         <div *ngIf="this.loginForm.get('acno')?.errors && this.loginForm.get('acno')?.touched" style="color:red;">Invalid Account Number</div>
         <div class="form-field d-flex align-items-center">
             <input formControlName="pswd" type="password" name="password" id="login_pswd" placeholder="Password">

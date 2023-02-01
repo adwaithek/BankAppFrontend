@@ -11,7 +11,10 @@
 }
 
 body {
-    background: #ecf0f3;
+    /* background: #ecf0f3; */
+
+    background-image: url(https://www.forbes.com/advisor/wp-content/uploads/2021/02/getty_5digital-banking_022221.jpg);
+    background-size: cover;
 }
 
 .wrapper {
@@ -19,9 +22,9 @@ body {
     min-height: 500px;
     margin: 80px auto;
     padding: 40px 30px 30px 30px;
-    background-color: #ecf0f3;
+    background-color: #fffffffe;
     border-radius: 15px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+    /* box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff; */
 }
 
 .logo {

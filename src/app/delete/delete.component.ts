@@ -10,6 +10,7 @@
       //input- it is used to hold the data from parent component
       @Output() onCancel = new EventEmitter();
       //output() -it is used to hold data child component
+      @Output() onDelete = new EventEmitter();
       constructor() { }
 
     ngOnInit(): void {
@@ -18,4 +19,10 @@
     // alert('no')
     this.onCancel.emit()
   }
+
+  
+  delete(){
+    this.onDelete.emit(this.item)
   }
+}
+  
