@@ -1,5 +1,8 @@
-<button class="btn btn-warning" style="float:right ;" (click)="logout()">Logout</button>
-<button class="btn btn-warning" style="float:right ;" (click)="delete()">Delete</button>
+<div style="" class="me-5">
+    <button class="btn btn-outline-primary mt-5 ms-3 p-1 " style="float:right ;" (click)="logout()">Logout</button>
+    <button class="btn btn-outline-danger mt-5 p-1" style="float:right ;" (click)="delete()">Delete</button>
+
+</div>
 
 
 
@@ -7,18 +10,19 @@
 
 <div class="parent">
     <div>
-        <h1>Welcome {{user}}</h1>
-        <a routerLink="/transaction">View Transaction History</a>
-    <h4>System date and time {{sdate | date:'short'}}</h4>
+        <h1 style="font-family: Georgia, 'Times New Roman', Times, serif; margin-left: 170px;" class="text-center pt-4">Welcome {{user}}</h1>
+   
+    <h6 class="text-center" style="margin-left: 177px; font-family: Arial, Helvetica, sans-serif;">System date and time {{sdate | date:'short'}}</h6>
+    <button  style="margin-left: 524px;" class="btn btn-outline-success text-center  p-1 mt-1" >  <a style="text-decoration: none; color: black;" routerLink="/transaction">View Transaction History</a></button>
     </div>
 
     <!-- child component -->
     <app-delete [item]="acno" (onCancel)="onCancel()" (onDelete)="onDelete($event)"></app-delete>
 
-    <div class="child" [ngClass]="acno? 'style1':'' ">
+    <div class="child" [ngClass]="acno? 'style1':'' "  style="margin-top: 00px;">
         <div class="wrapper">
             <div class="logo">
-                <img src="../../assets/images/bank.png" alt="">
+                <img src="https://cdn.logojoy.com/wp-content/uploads/2018/05/30160348/1528.png" alt="">
             </div>
             <div class="text-center mt-4 name">
                 Deposit
@@ -26,7 +30,7 @@
             <form [formGroup]="depositForm" class="p-3 mt-3">
 
                 <div class="form-field d-flex align-items-center">
-                    <input formControlName="acno" type="text" name="Account number" id="reg_acno"
+                    <input autocomplete="off" formControlName="acno" type="text" name="Account number" id="reg_acno"
                         placeholder="Account number">
                 </div>
                 
@@ -34,13 +38,13 @@
                     style="color:red;">Invalid Account Number</div>
 
                 <div class="form-field d-flex align-items-center">
-                    <input formControlName="pswd" type="password" name="password" id="reg_pswd" placeholder="Password">
+                    <input autocomplete="off" formControlName="pswd" type="password" name="password" id="reg_pswd" placeholder="Password">
                 </div>
                 <div *ngIf="this.depositForm.get('pswd')?.errors && this.depositForm.get('pswd')?.touched"
                     style="color:red;">Invalid Password</div>
 
                 <div class="form-field d-flex align-items-center">
-                    <input formControlName="amount" type="text" name="amount" id="amount" placeholder="Amount">
+                    <input autocomplete="off" formControlName="amount" type="text" name="amount" id="amount" placeholder="Amount">
                 </div>
                 <div *ngIf="this.depositForm.get('amount')?.errors && this.depositForm.get('amount')?.touched"
                     style="color:red;">Invalid Amount</div>
@@ -57,7 +61,7 @@
     <div class="child" [ngClass]="acno? 'style1':'' ">
         <div class="wrapper">
             <div class="logo">
-                <img src="../../assets/images/bank.png" alt="">
+                <img src="https://cdn.logojoy.com/wp-content/uploads/2018/05/30160348/1528.png" alt="">
             </div>
             <div class="text-center mt-4 name">
                 Withdraw
@@ -65,21 +69,21 @@
             <form [formGroup]="withdrawForm" class="p-3 mt-3">
 
                 <div class="form-field d-flex align-items-center">
-                    <input formControlName="acno1" type="text" name="Account number" id="reg_acno"
+                    <input autocomplete="off" formControlName="acno1" type="text" name="Account number" id="reg_acno"
                         placeholder="Account number">
                 </div>
                 <div *ngIf="this.withdrawForm.get('acno1')?.errors && this.withdrawForm.get('acno1')?.touched"
                     style="color:red;">Invalid Account Number</div>
 
                 <div class="form-field d-flex align-items-center">
-                    <input formControlName="pswd1" type="password" name="password" id="reg_pswd" placeholder="Password">
+                    <input autocomplete="off" formControlName="pswd1" type="password" name="password" id="reg_pswd" placeholder="Password">
 
                 </div>
                 <div *ngIf="this.withdrawForm.get('pswd1')?.errors && this.withdrawForm.get('pswd1')?.touched"
                     style="color:red;">Invalid Password</div>
 
                 <div class="form-field d-flex align-items-center">
-                    <input formControlName="amount1" type="text" name="amount" id="amount" placeholder="Amount">
+                    <input autocomplete="off" formControlName="amount1" type="text" name="amount" id="amount" placeholder="Amount">
                 </div>
                 <div *ngIf="this.withdrawForm.get('amount1')?.errors && this.withdrawForm.get('amount1')?.touched"
                     style="color:red;">Invalid Amount</div>
